@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vovan Toolkit v2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0c1d;
+            --primary-color: #00f0ff; /* Cyan */
+            --secondary-color: #ff00ff; /* Magenta */
+            --text-color: #e0e0e0;
+            --header-color: #ffffff;
+            --panel-color: rgba(255, 255, 255, 0.05);
+            --panel-hover-border: rgba(0, 240, 255, 0.5);
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Exo 2', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        #interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--panel-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: var(--header-color);
+            margin: 0;
+            text-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
+            animation: textGlow 2.5s ease-in-out infinite alternate;
+        }
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color); }
+            to { text-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color); }
+        }
+        .hero p { font-size: 1.5rem; margin-top: 10px; }
+        .hero .subtitle { font-style: italic; color: var(--primary-color); }
+        .cta-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--header-color);
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--primary-color);
+        }
+        .cta-button:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 25px var(--primary-color);
+            text-shadow: none;
+        }
+
+        /* General Section Styling */
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 3rem; font-weight: 700; color: var(--header-color); margin: 0; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card {
+            background: var(--panel-color);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--panel-color);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover { border-color: var(--panel-hover-border); transform: translateY(-10px); }
+        .feature-card h3 { font-size: 1.5rem; color: var(--primary-color); margin-top: 0; }
+        
+        /* Changelog Section */
+        .version-log {
+            background: var(--panel-color);
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .version-log h3 { color: var(--primary-color); margin-bottom: 10px; }
+        .version-log ul { padding-left: 20px; margin: 0; }
+        .version-log li { margin-bottom: 5px; }
+
+        /* Installation Section */
+        pre { background: #000; padding: 20px; border-radius: 5px; border-left: 5px solid var(--secondary-color); white-space: pre-wrap; word-wrap: break-word; font-size: 1rem; }
+        code { font-family: 'Courier New', Courier, monospace; }
+        .step { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <canvas id="interactive-bg"></canvas>
+
+    <div class="container">
+        <section class="hero">
+            <h1 data-aos="zoom-in">VOVAN TOOLKIT</h1>
+            <h2 style="color: white; font-weight: 400;" data-aos="fade-up" data-aos-delay="200">ВЕРСИЯ 2.0</h2>
+            <p data-aos="fade-up" data-aos-delay="400">Ультимативный набор инструментов для системного контроля.</p>
+            <p class="subtitle" data-aos="fade-up" data-aos-delay="600">Эксклюзивно для Владимира от Андрея.</p>
+            <a href="#download" class="cta-button" data-aos="fade-up" data-aos-delay="800">Перейти к загрузке</a>
+        </section>
+
+        <section id="features">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Возможности v2.0</h2>
+            </div>
+            <div class="features-grid">
+                 <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><span style="color: var(--secondary-color);">[NEW]</span> QR Code Generator</h3>
+                    <p>Новый модуль! Создавай QR-коды из любого текста или ссылки. Сгенерированный код сохраняется как изображение `qr_code.png` прямо в папке с программой.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>System Scanner</h3>
+                    <p>Получи полный срез данных о твоей системе: от модели ЦП и загрузки до использования оперативной памяти и дисков. Теперь с более детальным выводом.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Network Tools</h3>
+                    <p>Набор сетевых утилит для диагностики. Пингуй хосты, получай публичную информацию об IP-адресах, мгновенно узнавай свой внешний и внутренний IP.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>File Manager Pro</h3>
+                    <p>Интеллектуальный файловый менеджер. Анализируй содержимое любой папки или автоматически рассортируй хаос в "Загрузках" по категориям.</p>
+                </div>
+                 <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <h3>Data Encryptor</h3>
+                    <p>Защити свои данные. Модуль использует криптографически стойкий алгоритм Fernet для шифрования и дешифрования любого текста с помощью секретного ключа.</p>
+                </div>
+                 <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <h3>Password Forge</h3>
+                    <p>Создавай несокрушимые пароли. Гибкий генератор позволяет задавать длину и состав пароля, используя криптографически надежный источник случайных данных.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="changelog">
+             <div class="section-header" data-aos="fade-up">
+                <h2>История версий</h2>
+            </div>
+            <div class="version-log" data-aos="fade-right">
+                <h3>Версия 2.0 (Кодовое имя: "Абсолют")</h3>
+                <ul>
+                    <li>[+] Добавлен новый модуль: QR Code Generator.</li>
+                    <li>[*] Улучшен интерфейс и вывод данных во всех модулях.</li>
+                    <li>[*] Повышена стабильность и обработка ошибок.</li>
+                    <li>[*] Обновлен дизайн веб-интерфейса.</li>
+                </ul>
+            </div>
+             <div class="version-log" data-aos="fade-right" data-aos-delay="100">
+                <h3>Версия 1.0</h3>
+                <ul>
+                    <li>[+] Релиз базового набора из 5 утилит.</li>
+                    <li>[+] Создание первоначального веб-интерфейса.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="installation">
+             <div class="section-header" data-aos="fade-up">
+                <h2>Инструкция по Запуску</h2>
+            </div>
+             <div data-aos="fade-up">
+                <div class="step">
+                    <h3>Шаг 1: Подготовка</h3>
+                    <p>Скачай главный файл <code>VovanToolkit_v2.py</code> с этого сайта. Помести его в пустую папку на своем компьютере.</p>
+                </div>
+                <div class="step">
+                    <h3>Шаг 2: Открытие Терминала</h3>
+                    <p>Открой терминал (Командная строка или PowerShell на Windows) прямо в этой папке. Самый простой способ на Windows: открой папку, кликни на адресную строку, введи <code>cmd</code> и нажми Enter.</p>
+                </div>
+                <div class="step">
+                    <h3>Шаг 3: Установка библиотек</h3>
+                    <p>В открывшемся терминале выполни одну за другой следующие команды. Они установят все необходимые "дополнения" для работы скрипта.</p>
+                    <pre><code>pip install rich</code></pre>
+                    <pre><code>pip install psutil</code></pre>
+                    <pre><code>pip install requests</code></pre>
+                    <pre><code>pip install cryptography</code></pre>
+                    <pre><code>pip install qrcode[pil]</code></pre>
+                </div>
+                <div class="step">
+                    <h3>Шаг 4: Запуск!</h3>
+                    <p>Все готово. Когда последняя библиотека установится, введи команду для запуска инструментария:</p>
+                    <pre><code>python VovanToolkit_v2.py</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" style="border-bottom: none;">
+            <div class="container" data-aos="fade-up">
+                <h2>Загрузить Vovan Toolkit v2.0</h2>
+                <p>Финальная версия, созданная специально для тебя.</p>
+                <a href="VovanToolkit_v2.py" download class="cta-button">Скачать VovanToolkit_v2.py</a>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS Init
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+
+        // Interactive Background
+        const canvas = document.getElementById('interactive-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let spots = [];
+        let hue = 0;
+        
+        const mouse = {
+            x: undefined,
+            y: undefined
+        }
+
+        canvas.addEventListener('mousemove', function(event){
+            mouse.x = event.x;
+            mouse.y = event.y;
+            for(let i=0; i<3; i++){
+                spots.push(new Particle());
+            }
+        });
+
+        class Particle {
+            constructor(){
+                this.x = mouse.x;
+                this.y = mouse.y;
+                this.size = Math.random() * 2 + 0.1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = 'hsl(' + hue + ', 100%, 50%)';
+            }
+            update(){
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if(this.size > 0.1) this.size -= 0.03;
+            }
+            draw(){
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        function handleParticles(){
+            for(let i=0; i<spots.length; i++){
+                spots[i].update();
+                spots[i].draw();
+                for(let j=i; j<spots.length; j++){
+                    const dx = spots[i].x - spots[j].x;
+                    const dy = spots[i].y - spots[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if(distance < 90){
+                        ctx.beginPath();
+                        ctx.strokeStyle = spots[i].color;
+                        ctx.lineWidth = spots[i].size / 10;
+                        ctx.moveTo(spots[i].x, spots[i].y);
+                        ctx.lineTo(spots[j].x, spots[j].y);
+                        ctx.stroke();
+                    }
+                }
+                if(spots[i].size <= 0.3){
+                    spots.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        function animate(){
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            handleParticles();
+            hue++;
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', function(){
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+        })
+        window.addEventListener('mouseout', function(){
+            mouse.x = undefined;
+            mouse.y = undefined;
+        })
+
+        animate();
+    </script>
+</body>
+</html>
